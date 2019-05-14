@@ -6,7 +6,9 @@ const TelegramBot = require('node-telegram-bot-api');
 var jsonSql = require('json-sql')();
 
 const token = config.telegramToken;
+const token2 = config.telegramToken2;
 var bot = new TelegramBot(token, {polling: true});
+var bot2 = new TelegramBot(token2, {polling: true});
 
 var mysql = require('mysql').createConnection(config.sqlOptions);
 //mysql.connect(function(err) {
@@ -39,5 +41,11 @@ bot.onText(/\/previsao/, (msg, match) => {
     votosValidos = rand(100,51);
     resp = votosValidos + ' dos votos válidos vão para o Haddad e ' + (100 - votosValidos) + ' vão para o Bolsonaro nesse segundo turno';
   }
+  bot.sendMessage(chatId, resp);
+});
+
+bot2.onText(/\/fala/, (msg, match) => {
+  let chatId = msg.chat.id;
+  let resp = 'funfando';
   bot.sendMessage(chatId, resp);
 });
